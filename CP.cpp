@@ -64,28 +64,34 @@ ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, modInvers
 vector<ll> sieve(int n) {int*arr = new int[n + 1](); vector<ll> vect; for (int i = 2; i <= n; i++)if (arr[i] == 0) {vect.push_back(i); for (int j = 2 * i; j <= n; j += i)arr[j] = 1;} return vect;}
 vector<ll> factor(ll n){vector<ll> res;for(ll i=1;i*i<=n;i++){if(n%i==0){res.push_back(i);if(i!=n/i)res.push_back(n/i);}}return res;}
 
+
 int main(){
-    fastio();
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt","r",stdin);
+        freopen("output.txt","w",stdout);
+    #endif
     w(t){
-        int n;cin>>n;;vl arr(n),brr(n);loop(i,n)cin>>arr[i];loop(i,n)cin>>brr[i];
-        int count=0;
-        priority_queue<ll> a,b;
-        loop(i,n)a.push(arr[i]);
-        loop(i,n)b.push(brr[i]);
-        while(!a.empty()){
-            ll a1=a.top(),b1=b.top();
-            a.pop(),b.pop();
-            if(a1>b1){
-                a.push(to_string(a1).length());
-                b.push(b1);
-                count++;
+        int n;cin>>n;vi arr(n);loop(i,n)cin>>arr[i];
+        vector<pii> res;
+        if(n&1)cout<<-1<<endl;
+        else{
+            loop(i,n){
+                if(arr[i]==arr[i+1]){
+                    res.push_back(make_pair(i+1,i+2));
+                }
+                else{
+                    res.push_back(make_pair(i+1,i+1));
+                    res.push_back(make_pair(i+2,i+2));
+                }
+                i++;
             }
-            else if(b1>a1){
-                b.push(to_string(b1).length());
-                a.push(a1);
-                count++;
+            debug(res);
+            cout<<res.size()<<endl;
+            loop(i,res.size()){
+                cout<<res[i].first<<" "<<res[i].second<<endl;
+                debug(res);
             }
         }
-        cout<<count<<endl;
+
     }
 }
