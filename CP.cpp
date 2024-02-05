@@ -66,32 +66,8 @@ vector<ll> factor(ll n){vector<ll> res;for(ll i=1;i*i<=n;i++){if(n%i==0){res.pus
 
 
 int main(){
-    #ifndef ONLINE_JUDGE
-        freopen("input.txt","r",stdin);
-        freopen("output.txt","w",stdout);
-    #endif
-    w(t){
-        int n;cin>>n;vi arr(n);loop(i,n)cin>>arr[i];
-        vector<pii> res;
-        if(n&1)cout<<-1<<endl;
-        else{
-            loop(i,n){
-                if(arr[i]==arr[i+1]){
-                    res.push_back(make_pair(i+1,i+2));
-                }
-                else{
-                    res.push_back(make_pair(i+1,i+1));
-                    res.push_back(make_pair(i+2,i+2));
-                }
-                i++;
-            }
-            debug(res);
-            cout<<res.size()<<endl;
-            loop(i,res.size()){
-                cout<<res[i].first<<" "<<res[i].second<<endl;
-                debug(res);
-            }
-        }
-
-    }
+    fastio();
+    int n=1234;
+    cout<<n<<'\n';
+    
 }
