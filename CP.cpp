@@ -3,8 +3,7 @@
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 using namespace __gnu_pbds;
- 
-#define rbtrees tree<int, null_type,less_equal<int>, rb_tree_tag,tree_order_statistics_node_update> 
+#define rbtrees tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x <<":"; _print(x); cerr << endl;
@@ -62,12 +61,44 @@ ll mod_mul(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a * b) % m) + m) %
 ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, modInverse(b), m) + m) % m;}
 vector<ll> sieve(int n) {int*arr = new int[n + 1](); vector<ll> vect; for (int i = 2; i <= n; i++)if (arr[i] == 0) {vect.push_back(i); for (int j = 2 * i; j <= n; j += i)arr[j] = 1;} return vect;}
-vector<ll> factor(ll n){vector<ll> res;for(ll i=1;i*i<=n;i++){if(n%i==0){res.push_back(i);if(i!=n/i)res.push_back(n/i);}}return res;}
+vector<int> factor(int n){vector<int> res;for(int i=1;i*i<=n;i++){if(n%i==0){res.push_back(i);if(i!=n/i)res.push_back(n/i);}}return res;}
+
+// int build(int node,int st,int ed,vi &tr,vi &pre){
+//     if(st==ed)return tr[node]=pre[st];
+//     int mid=(st+ed)/2;
+//     tr[node]=build(2*node,st,mid,tr,pre)+build(2*node+1,mid+1,ed,tr,pre);
+//     return tr[node];
+// }
+// int query(int node,int l,int r,int st,int ed,vi &tr){
+//     if(l>ed || st>r)return 0;
+//     if(st<=l && ed>=r)return tr[node];
+//     int mid=(l+r)/2;
+//     return query(2*node,l,mid,st,ed,tr)+query(2*node+1,mid+1,r,st,ed,tr);
+// }
+// int update(int pos,int k,int node,int st,int ed,vi &tr){
+//     if(st==ed)return tr[node]=k%2;
+//     int mid=(st+ed)/2;
+//     if(mid>=pos)update(pos,k,2*node,st,mid,tr);
+//     else update(pos,k,2*node+1,mid+1,ed,tr);
+//     tr[node]=tr[2*node]+tr[2*node+1];
+//     return tr[node];
+// }
 
 
-int main(){
-    fastio();
-    int n=1234;
-    cout<<n<<'\n';
-    
+int main()
+{
+  fastio();
+  w(t)
+  {
+    int n;cin>>n;vi arr(n);loop(i,n)cin>>arr[i];int cnt=0;
+    vi res;res.push_back(arr[0]);Loop(i,1,n)if(arr[i]!=arr[i-1])res.push_back(arr[i]);
+    int sz=res.size();
+    Loop(i,1,sz-1){
+      if(res[i-1]<res[i] && res[i]>res[i+1])cnt++;
+      else if(res[i]<res[i-1] && res[i]<res[i+1])cnt++;
+    }
+    if(cnt>0)cnt--;
+    int ele=*max_element(all(arr));
+    cout<<cnt+ele-1<<'\n';
+  }
 }
